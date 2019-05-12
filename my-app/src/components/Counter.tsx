@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 
-export const Counter: React.FC = () => {
-  const [count, setcount] = useState(0)
-  const handleClick = () => setcount(count + 1)
+const useCount = ({initialState = 0, step = 1} = {}) => {
+  const [count, setcount] = useState(initialState)
+  const increment = () => setcount(count + step)
 
-  return <button onClick={handleClick} >{count}</button>
+  return { count, increment }
+}
+
+export const Counter: React.FC = () => {
+  const { increment, count } = useCount()
+  return <button onClick={increment} >{count}</button>
 }
