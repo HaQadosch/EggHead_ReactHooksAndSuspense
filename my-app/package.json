@@ -25,6 +25,7 @@
     "@types/react": "16.8.17",
     "@types/react-dom": "16.8.4",
     "@types/vanilla-tilt": "^1.4.1",
+    "activity-detector": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
