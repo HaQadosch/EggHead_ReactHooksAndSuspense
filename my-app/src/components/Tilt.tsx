@@ -9,8 +9,9 @@ interface HTMLVanillaTiltElement extends HTMLDivElement {
 export const Tilt: React.FC = props => {
   const tiltRef = useRef<HTMLVanillaTiltElement>(null);
   useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, {
+    const tiltRefCurrent = tiltRef.current;
+    if (tiltRefCurrent) {
+      VanillaTilt.init(tiltRefCurrent, {
         max: 25,
         speed: 400,
         glare: true,
@@ -18,8 +19,8 @@ export const Tilt: React.FC = props => {
       });
     }
     return () => {
-      if (tiltRef.current) {
-        tiltRef.current.vanillaTilt.destroy();
+      if (tiltRefCurrent) {
+        tiltRefCurrent.vanillaTilt.destroy();
       }
     };
   }, []);

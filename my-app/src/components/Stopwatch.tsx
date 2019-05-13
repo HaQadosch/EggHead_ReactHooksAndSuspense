@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect, useReducer } from "react";
 
 const buttonStyle = {
   border: "1px solid #ccc",
@@ -9,9 +9,50 @@ const buttonStyle = {
   width: 200
 };
 
-export const Stopwatch = () => {
-  const [lapse, setLapse] = useState<number>(0);
-  const [running, setRunning] = useState<boolean>(false);
+type StateType = {
+  running: boolean;
+  lapse: number;
+};
+
+type ActionType = {
+  type: "LAPSE" | "TOGGLE_RUNNING" | "CLEAR";
+  now?: number;
+  startTime?: number;
+};
+
+const stopWatchReducer = (state: StateType, action: ActionType) => {
+  switch (action.type) {
+    case "LAPSE":
+      return {
+        ...state,
+        lapse: (action.now || 0) - (action.startTime || 0)
+      };
+
+    case "TOGGLE_RUNNING":
+      return {
+        ...state,
+        running: !state.running
+      };
+
+    case "CLEAR":
+      return {
+        ...state,
+        lapse: 0,
+        running: false
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const Stopwatch: React.FC = () => {
+  const [{ lapse, running }, dispatch] = useReducer(stopWatchReducer, {
+    lapse: 0,
+    running: false
+  });
+  // const [lapse, setLapse] = useState<number>(0);
+  // const [running, setRunning] = useState<boolean>(false);
   const intervalRef = useRef<number>(0);
 
   useEffect(() => () => clearInterval(intervalRef.current), []);
@@ -22,16 +63,19 @@ export const Stopwatch = () => {
     } else {
       const startTime = Date.now() - lapse;
       intervalRef.current = window.setInterval(() => {
-        setLapse(Date.now() - startTime);
+        // setLapse(Date.now() - startTime);
+        dispatch({ type: "LAPSE", now: Date.now(), startTime });
       }, 0);
     }
-    setRunning(!running);
+    // setRunning(!running);
+    dispatch({ type: "TOGGLE_RUNNING" });
   };
 
   const clearWatch = () => {
     clearInterval(intervalRef.current);
-    setLapse(0);
-    setRunning(false);
+    // setLapse(0);
+    // setRunning(false);
+    dispatch({ type: "CLEAR" });
   };
 
   return (
