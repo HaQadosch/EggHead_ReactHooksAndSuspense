@@ -13,6 +13,12 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all"
+  },
   "dependencies": {
     "@types/jest": "^24.0.12",
     "@types/node": "12.0.0",

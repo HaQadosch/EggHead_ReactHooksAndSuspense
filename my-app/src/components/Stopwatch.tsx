@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useReducer } from "react";
+import React, { useRef, useEffect, useReducer } from 'react';
 
 const buttonStyle = {
-  border: "1px solid #ccc",
-  background: "#fff",
-  fontSize: "2em",
+  border: '1px solid #ccc',
+  background: '#fff',
+  fontSize: '2em',
   padding: 15,
   margin: 5,
-  width: 200
+  width: 200,
 };
 
 type StateType = {
@@ -18,10 +18,10 @@ const stopWatchReducer = (currentState: StateType, newState: StateType) => {
   return { ...currentState, ...newState };
 };
 
-export const Stopwatch: React.FC = () => {
+const useStopWatch = () => {
   const [{ lapse, running }, setState] = useReducer(stopWatchReducer, {
     lapse: 0,
-    running: false
+    running: false,
   });
   const intervalRef = useRef<number>(0);
 
@@ -44,15 +44,31 @@ export const Stopwatch: React.FC = () => {
     setState({ lapse: 0, running: false });
   };
 
+  return { lapse, running, startStop, clearWatch };
+};
+
+export const Stopwatch: React.FC = () => {
+  const stopWatch_1 = useStopWatch();
+  const stopWatch_2 = useStopWatch();
+
   return (
-    <div style={{ textAlign: "center" }}>
-      <label
-        style={{ display: "block", fontSize: "5em" }}
-      >{`${lapse} ms`}</label>
-      <button onClick={startStop} style={buttonStyle}>
-        {running ? "Stop" : "Start"}
+    <div style={{ textAlign: 'center' }}>
+      <label style={{ display: 'block', fontSize: '5em' }}>{`${stopWatch_1.lapse} ms`}</label>
+      <button onClick={stopWatch_1.startStop} style={buttonStyle}>
+        {stopWatch_1.running ? 'Stop' : 'Start'}
       </button>
-      <button onClick={clearWatch} style={buttonStyle}>
+      <button onClick={stopWatch_1.clearWatch} style={buttonStyle}>
+        Clear
+      </button>
+      <hr />
+      <strong>Lapse Difference: </strong>
+      <span>{`${(stopWatch_1.lapse || 0) - (stopWatch_2.lapse || 0)} ms`}</span>
+      <hr />
+      <label style={{ display: 'block', fontSize: '5em' }}>{`${stopWatch_2.lapse} ms`}</label>
+      <button onClick={stopWatch_2.startStop} style={buttonStyle}>
+        {stopWatch_2.running ? 'Stop' : 'Start'}
+      </button>
+      <button onClick={stopWatch_2.clearWatch} style={buttonStyle}>
         Clear
       </button>
     </div>
