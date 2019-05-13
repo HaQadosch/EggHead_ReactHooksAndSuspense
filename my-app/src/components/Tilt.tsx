@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import "./Tilt.css";
-import VanillaTilt from "vanilla-tilt";
+import React, { useRef, useEffect } from 'react';
+import './Tilt.css';
+import VanillaTilt from 'vanilla-tilt';
 
 interface HTMLVanillaTiltElement extends HTMLDivElement {
   vanillaTilt: VanillaTilt;
@@ -15,7 +15,7 @@ export const Tilt: React.FC = props => {
         max: 25,
         speed: 400,
         glare: true,
-        "max-glare": 0.5
+        'max-glare': 0.5,
       });
     }
     return () => {
@@ -25,16 +25,16 @@ export const Tilt: React.FC = props => {
     };
   }, []);
   return (
-    <div ref={tiltRef} className="tilt-root">
-      <div className="tilt-child">{props.children}</div>
+    <div ref={tiltRef} className='tilt-root'>
+      <div className='tilt-child'>{props.children}</div>
     </div>
   );
 };
 
 export const Usage = () => (
-  <div className="totally-centered">
+  <div className='totally-centered'>
     <Tilt>
-      <div className="totally-centered">vanilla-tilt</div>
+      <div className='totally-centered'>vanilla-tilt</div>
     </Tilt>
   </div>
 );
