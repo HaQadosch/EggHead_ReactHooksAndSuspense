@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import createActivityDetector from 'activity-detector';
 
 interface ActivityDetectorOptions {
-  timeToIdle?: number;
+  timeToIdle: number;
 }
 
 const useIdle = (options: ActivityDetectorOptions) => {
@@ -12,7 +12,7 @@ const useIdle = (options: ActivityDetectorOptions) => {
     activityDetector.on('idle', () => setIsIdle(true));
     activityDetector.on('active', () => setIsIdle(false));
     return () => activityDetector.stop();
-  }, []);
+  }, [options]);
 
   return isIdle;
 };

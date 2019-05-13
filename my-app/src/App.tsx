@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { AppForm } from './components/AppForm';
 import { Idle } from './components/Idle';
 import { Counter } from './components/Counter';
 import { Usage } from './components/Tilt';
@@ -9,6 +10,7 @@ const App: React.FC = () => {
   return (
     <div className='App'>
       <header className='App-header'>
+        <AppForm />
         <Idle />
         <Counter />
         <Usage />
