@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Counter } from "./components/Counter";
 import { Usage } from "./components/Tilt";
+import { Stopwatch } from "./components/Stopwatch";
 
 const App: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const App: React.FC = () => {
       <header className="App-header">
         <Counter />
         <Usage />
+        <Stopwatch />
       </header>
     </div>
   );
